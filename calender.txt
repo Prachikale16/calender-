@@ -1,0 +1,68 @@
+#include<stdio.h>
+
+int main(){
+    int year, month, daysInmonth, startingday, dayofweek;
+    
+    //input year and month
+    printf("enter year: ");
+    scanf("%d", &year);
+    printf("enter month (1-12): \n");
+    scanf("%d", &month);
+
+    //calculate the number of days in the month
+    if(month == 2){
+        // check for leap year
+        if((year % 4 == 0 && year % 100 !=0) || (year % 400 == 0))
+            daysInmonth = 29;
+         else
+              daysInmonth = 28;
+    }      
+          else if(month == 4 || month == 6 || month == 9 || month == 11) {
+                daysInmonth = 30;
+    }
+            else{
+                daysInmonth = 31;
+            }
+        //calculating the starting day of the month
+        startingday = (year-1) * 365 + (year - 1) / 4 - (year - 1) / 100 + (year - 1) / 400;
+        for(int i = 1; i < month; ++i){
+            if(i == 2){
+                if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
+                    startingday += 29;
+                else
+                startingday += 28;    
+            } else if(i == 4 || i == 6 || i == 9 || i == 11){
+                 startingday += 30;
+            } else{
+                startingday += 31;
+            }
+        }
+        dayofweek = (startingday + 1) % 7; 
+        // display the calendar
+        printf("\n==================================\n");
+        printf("         %d-%02d\n", year, month);
+        printf("==================================\n");
+        printf("sun mon tue wed thu fri sat\n");
+
+        // print spaces for the days befre the starting day of the month
+        for(int i = 0; i < dayofweek; ++i){
+            printf("      ");
+        }
+         
+        // print the days of the month
+        for(int day = 1; day <= daysInmonth; ++day){
+            printf("%4d", day);
+            if((day + dayofweek) % 7 == 0) {
+                printf("\n");
+            }
+        }
+
+        printf("\n");
+        return 0;
+
+        
+    
+
+
+}
+
